@@ -1,0 +1,219 @@
+/**
+ * Buzzer! app for playing live Jeopardy like games
+ *
+ * Listens for client connections and creates a SwingWorker background thread
+ * for each accepted, active connection with a client
+ *
+ * @author Gina Sprint
+ */
+
+import javax.swing.SwingWorker;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
+public class BuzzerServer {
+    protected static final int POINTS = 10;
+    protected static final int PORT_NUMBER = 8080;
+    protected static boolean listening = false;
+
+    protected BuzzerController controller;
+
+    protected ServerSocket serverSocket;
+    protected List<Participant> participants = new ArrayList<>();
+    protected List<InetAddress> responses = new ArrayList<>();
+
+    public BuzzerServer() {
+
+    }
+
+    public void setController(BuzzerController controller) {
+        this.controller = controller;
+    }
+
+    public void startListening() {
+        listening = true;
+
+        try {
+            serverSocket = new ServerSocket(PORT_NUMBER);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // using a standard Thread not SwingWorker thread because
+        // this is purely backend work that doesn't update the UI
+        // the server has a thread that listens for new connection requests from clients
+        new Thread(() -> {
+            Socket clientSocket;
+            while(listening) {
+                try {
+                    clientSocket = serverSocket.accept();
+                    InetAddress inetAddress = clientSocket.getInetAddress();
+                    Participant p;
+                    if ((p = findParticipant(inetAddress)) != null) {
+                        p.setClientSocket(clientSocket);
+                    }
+                    else {
+                        p = new Participant(clientSocket);
+                        participants.add(p);
+                    }
+                    controller.updateClientComponents();
+                    ClientConnectionThread clientThread = new ClientConnectionThread(p, this, controller);
+                    clientThread.execute(); // calls SwingWorker's doInBackground() on a background thread
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }).start();
+    }
+
+    public void stopListening() {
+        listening = false;
+        try {
+            for (Participant s : participants) {
+                if (!s.getClientSocket().isClosed()) {
+                    System.out.println("Closing " + s.getName());
+                    PrintWriter out = new PrintWriter(s.getClientSocket().getOutputStream(), true);
+                    out.println("closing");
+                    s.getClientSocket().close();
+                }
+            }
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        participants.clear();
+        updateParticipantList();
+        controller.updateClientComponents();
+    }
+
+    public Participant findParticipant(InetAddress inetAddress) {
+        for (Participant p : participants) {
+            if (p.getClientSocket().getInetAddress().equals(inetAddress)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void updateParticipantList() {
+        List<Participant> connectedList = new ArrayList<>();
+        for (Participant p : participants) {
+            if (!p.isClosed()) {
+                connectedList.add(p);
+            }
+        }
+        participants = connectedList;
+    }
+
+    public ArrayList<String> getParticipantScores() {
+        Collections.sort(participants);
+        Collections.reverse(participants);
+        ArrayList<String> scores = new ArrayList<>();
+
+        for (Participant p : participants) {
+            scores.add(p.name + " (" + p.score + ")");
+        }
+        return scores;
+    }
+
+    public void scoreParticipant(int responseIndex) {
+        InetAddress responseAddress = responses.get(responseIndex);
+        for (Participant p : participants) {
+            if (p.getClientSocket().getInetAddress().equals(responseAddress)) {
+                p.setScore(p.getScore() + POINTS);
+            }
+        }
+    }
+
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void clearResponses() {
+        responses.clear();
+    }
+}
+
+// execute long running tasks on background threads
+// each connection to a client runs on its own thread
+// so it doesn't block the main GUI event thread (AKA event dispatch thread)
+// see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/dispatch.html
+// see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/worker.html
+// uses paramterized types... the first one is the return type of doInBackground()
+// second one is for parameterized type of the List elements in process()
+// you would use process() to provide intermediate results, perhaps to update a progress bar of some sort
+// not used here, but would be called on the main UI thread
+// see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/interim.html
+class ClientConnectionThread extends SwingWorker<String, Void> {
+    private BuzzerServer buzzerServer;
+    private BufferedReader in;
+    private BuzzerController buzzerController;
+    private Participant client;
+
+    public ClientConnectionThread(Participant client, BuzzerServer buzzerServer, BuzzerController controller) {
+        this.client = client;
+        this.buzzerController = controller;
+        this.buzzerServer = buzzerServer;
+        try {
+            in = new BufferedReader(new InputStreamReader(client.getClientSocket().getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // doInBackground() is called when execute() is called on the SwingWorker object
+    // doInBackground() runs on a background thread and cannot update the UI
+    // returns a String that can be accessed from done() via get() (not used here)
+    // see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/simple.html
+    // doInBackground() would call publish() if had intermediate results that
+    // process() should inform the user of on the main UI thread
+    // see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/interim.html
+    public String doInBackground() {
+        try {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println("Read from client: " + inputLine);
+                if (inputLine.length() > 0) { // ignore empty messages
+                    if (!inputLine.equals(client.getName())) {
+                        // new name for this client, update list
+                        client.setName(inputLine);
+                        buzzerController.updateClientComponents();
+                    }
+                    if (!buzzerServer.responses.contains(client.getClientSocket().getInetAddress())) {
+                        // we haven't received a response from this ip address yet
+                        buzzerServer.responses.add(client.getClientSocket().getInetAddress());
+                        buzzerController.responseReceived(inputLine);
+                    }
+                }
+            }
+            System.out.println("Read null from client " + client.getName() + ", closing socket");
+            client.getClientSocket().close();
+        } catch (SocketException e) {
+            System.out.println("Socket Exception: " + e.getMessage());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    // called on the main UI thread and can update the UI
+    @Override
+    protected void done() {
+        super.done();
+
+        buzzerServer.updateParticipantList();
+        buzzerController.updateClientComponents();
+    }
+}
