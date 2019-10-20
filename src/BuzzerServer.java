@@ -23,7 +23,7 @@ import java.util.List;
 
 public class BuzzerServer {
     protected static final int POINTS = 10;
-    protected static final int PORT_NUMBER = 8080;
+    protected static int portNumber = 8080;
     protected static boolean listening = false;
 
     protected BuzzerController controller;
@@ -32,8 +32,8 @@ public class BuzzerServer {
     protected List<Participant> participants = new ArrayList<>();
     protected List<InetAddress> responses = new ArrayList<>();
 
-    public BuzzerServer() {
-
+    public BuzzerServer(int portNumber) {
+        this.portNumber = portNumber;
     }
 
     public void setController(BuzzerController controller) {
@@ -44,7 +44,7 @@ public class BuzzerServer {
         listening = true;
 
         try {
-            serverSocket = new ServerSocket(PORT_NUMBER);
+            serverSocket = new ServerSocket(portNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class BuzzerServer {
         // using a standard Thread not SwingWorker thread because
         // this is purely backend work that doesn't update the UI
         // the server has a thread that listens for new connection requests from clients
-        new Thread(() -> {
+        new Thread(() -> { // lambda expression for run() (anonymous class implementation of Runnable)
             Socket clientSocket;
             while(listening) {
                 try {

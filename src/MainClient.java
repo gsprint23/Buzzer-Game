@@ -21,6 +21,20 @@ public class MainClient {
         String hostName = "localhost"; // or insert IP address here
         int portNumber = 8080;
 
+        if (args.length == 2) {
+            hostName = args[0];
+            portNumber = Integer.parseInt(args[1]);
+        }
+        else {
+            System.out.println("Usage: <hostname> <port number>");
+            System.out.println("Using default hostname: " + hostName);
+            System.out.println("Using default port number: " + portNumber);
+        }
+
+        connect(hostName, portNumber);
+    }
+
+    public static void connect(String hostName, int portNumber) {
         try {
             Socket clientSocket = new Socket(hostName, portNumber);
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
