@@ -13,8 +13,12 @@ Compare to hardware implementations such as
 * Controller: BuzzerController
  
 ### To Run
-* java MainServer <port number>
-* java MainClient <server host name> <port number>
+* java MainServer portNumber
+* java MainClient serverHostName portNumber
+
+Default values are
+* portNumber 8080
+* serverHostName localhost
 
 ### Dependencies
 * Java version >= 8
