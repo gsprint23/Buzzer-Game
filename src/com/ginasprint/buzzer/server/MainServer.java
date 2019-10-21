@@ -5,14 +5,20 @@
  * - https://www.buzzersystems.com/
  * - https://www.quizgamebuzzers.com
  *
- * Model: BuzzerServer
- * View: BuzzerGUI
- * Controller: BuzzerController
+ * Server MVC
+ * Model: com.sprint.buzzer.server.Server
+ * View: com.sprint.buzzer.server.ServerGUI
+ * Controller: com.sprint.buzzer.server.ServerController
  *
- * Client: MainClient
+ * Client MVC
+ * Model: com.sprint.buzzer.client.Client
+ * View: com.sprint.buzzer.client.ClientGUI
+ * Controller: com.sprint.buzzer.client.ClientController
  *
  * @author Gina Sprint
  */
+
+package com.ginasprint.buzzer.server;
 
 public class MainServer {
     public static void main(String[] args) {
@@ -24,7 +30,7 @@ public class MainServer {
             System.out.println("Usage: <hostname> <port number>");
             System.out.println("Using default port number: " + portNumber);
         }
-        BuzzerServer server = new BuzzerServer(portNumber);
-        BuzzerController controller = new BuzzerController(server);
+        Server server = new Server(portNumber);
+        ServerController controller = new ServerController(server);
     }
 }

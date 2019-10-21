@@ -6,6 +6,8 @@
  * @author Gina Sprint
  */
 
+package com.ginasprint.buzzer.server;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -14,11 +16,11 @@ import java.awt.event.WindowEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class BuzzerGUI extends JFrame {
+public class ServerGUI extends JFrame {
     protected static final int FONT_SIZE = 18;
     protected static String ipAddress = "localhost";
 
-    protected BuzzerController controller;
+    protected ServerController controller;
 
     // GUI component fields
     protected JLabel clientCountLabel;
@@ -29,7 +31,7 @@ public class BuzzerGUI extends JFrame {
     protected JList scoreList;
     protected DefaultListModel<String> scoreListModel;
 
-    public BuzzerGUI(BuzzerController controller) {
+    public ServerGUI(ServerController controller) {
         super("The Buzzer! Game");
         this.controller = controller;
 
@@ -119,7 +121,7 @@ public class BuzzerGUI extends JFrame {
 
         JPanel panel = new JPanel(new GridLayout(1,0));
         panel.add(scoreScrollPane);
-        panel.setBorder(BorderFactory.createTitledBorder("Leaderboard Points"));
+        panel.setBorder(BorderFactory.createTitledBorder("Leaderboard Rankings"));
         TitledBorder border = (TitledBorder) panel.getBorder();
         border.setTitleFont(new Font("Default", Font.PLAIN, FONT_SIZE));
         return panel;
@@ -156,7 +158,7 @@ public class BuzzerGUI extends JFrame {
 
         JButton startStopButton = new JButton();
         startStopButton.setFont(new Font("Default", Font.PLAIN, FONT_SIZE));
-        startStopButton.setText("Stop Listening");
+        startStopButton.setText("Stop Session");
         startStopButton.setActionCommand("Stop");
         startStopButton.addActionListener(this.controller);
         buttonPanel.add(startStopButton);

@@ -7,6 +7,8 @@
  * @author Gina Sprint
  */
 
+package com.ginasprint.buzzer.server;
+
 import javax.swing.SwingWorker;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,22 +23,22 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class BuzzerServer {
+public class Server {
     protected static final int POINTS = 10;
     protected static int portNumber = 8080;
     protected static boolean listening = false;
 
-    protected BuzzerController controller;
+    protected ServerController controller;
 
     protected ServerSocket serverSocket;
     protected List<Participant> participants = new ArrayList<>();
     protected List<InetAddress> responses = new ArrayList<>();
 
-    public BuzzerServer(int portNumber) {
+    public Server(int portNumber) {
         this.portNumber = portNumber;
     }
 
-    public void setController(BuzzerController controller) {
+    public void setController(ServerController controller) {
         this.controller = controller;
     }
 
@@ -120,8 +122,9 @@ public class BuzzerServer {
         Collections.reverse(participants);
         ArrayList<String> scores = new ArrayList<>();
 
-        for (Participant p : participants) {
-            scores.add(p.name + " (" + p.score + ")");
+        for (int i = 0; i < participants.size(); i++) {
+            Participant p = participants.get(i);
+            scores.add((i + 1) + ") " + p.name + " (" + p.score + " pts)");
         }
         return scores;
     }
@@ -142,6 +145,13 @@ public class BuzzerServer {
     public void clearResponses() {
         responses.clear();
     }
+
+    public void clearScores() {
+        for (int i = 0; i < participants.size(); i++) {
+            Participant p = participants.get(i);
+            p.setScore(0);
+        }
+    }
 }
 
 // execute long running tasks on background threads
@@ -155,12 +165,12 @@ public class BuzzerServer {
 // not used here, but would be called on the main UI thread
 // see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/interim.html
 class ClientConnectionThread extends SwingWorker<String, Void> {
-    private BuzzerServer buzzerServer;
+    private Server buzzerServer;
     private BufferedReader in;
-    private BuzzerController buzzerController;
+    private ServerController buzzerController;
     private Participant client;
 
-    public ClientConnectionThread(Participant client, BuzzerServer buzzerServer, BuzzerController controller) {
+    public ClientConnectionThread(Participant client, Server buzzerServer, ServerController controller) {
         this.client = client;
         this.buzzerController = controller;
         this.buzzerServer = buzzerServer;

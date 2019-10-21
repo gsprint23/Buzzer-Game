@@ -8,6 +8,8 @@
  * @author Gina Sprint
  */
 
+package com.ginasprint.buzzer.server;
+
 import java.net.Socket;
 
 public class Participant implements Comparable<Participant> {
@@ -17,7 +19,7 @@ public class Participant implements Comparable<Participant> {
 
     public Participant(Socket socket) {
         this.clientSocket = socket;
-        this.name = socket.getInetAddress().getHostName();
+        this.name = socket.getInetAddress().getHostAddress();
         this.score = 0;
     }
 

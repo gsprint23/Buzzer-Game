@@ -8,9 +8,9 @@ Compare to hardware implementations such as
 * https://www.quizgamebuzzers.com
 
 ### Model-View-Controller Design
-* Model: BuzzerServer
-* View: BuzzerGUI
-* Controller: BuzzerController
+* Model: Server
+* View: ServerGUI
+* Controller: ServerController
  
 ### To Run
 * java MainServer portNumber
