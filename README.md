@@ -7,10 +7,15 @@ Compare to hardware implementations such as
 * https://www.buzzersystems.com/
 * https://www.quizgamebuzzers.com
 
-### Model-View-Controller Design
+### Server MVC Design (com.ginasprint.buzzer.server)
 * Model: Server
 * View: ServerGUI
 * Controller: ServerController
+
+### Client MVC Design (com.ginasprint.buzzer.client)
+* Model: Client
+* View: ClientGUI
+* Controller: ClientController
  
 ### To Run
 * java MainServer portNumber
