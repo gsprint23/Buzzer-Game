@@ -36,4 +36,8 @@ public class ClientController {
                 "Connection Closed", JOptionPane.ERROR_MESSAGE);
         System.exit(-1);
     }
+
+    public void windowIsClosing() {
+        client.closeConnection();
+    }
 }

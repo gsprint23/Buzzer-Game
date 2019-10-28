@@ -1,8 +1,8 @@
 /**
  * Buzzer! app for playing live Jeopardy like games
  *
- * Listens for client connections and creates a SwingWorker background thread
- * for each accepted, active connection with a client
+ * Listens for client connections on a thread
+ * Listens for messages from active connection with a client on another thread
  *
  * @author Gina Sprint
  */
@@ -24,6 +24,7 @@ import java.util.List;
 
 
 public class Server {
+    public static final String CLOSING = "closing";
     protected static final int POINTS = 10;
     protected static int portNumber = 8080;
     protected static boolean listening = false;
@@ -162,12 +163,6 @@ public class Server {
 // each connection to a client runs on its own thread
 // so it doesn't block the main GUI event thread (AKA event dispatch thread)
 // see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/dispatch.html
-// see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/worker.html
-// uses paramterized types... the first one is the return type of doInBackground()
-// second one is for parameterized type of the List elements in process()
-// you would use process() to provide intermediate results, perhaps to update a progress bar of some sort
-// not used here, but would be called on the main UI thread
-// see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/interim.html
 class ClientConnectionThread extends Thread {
     private Server buzzerServer;
     private BufferedReader in;
@@ -179,19 +174,10 @@ class ClientConnectionThread extends Thread {
         this.buzzerServer = buzzerServer;
     }
 
-    // doInBackground() is called when execute() is called on the SwingWorker object
-    // doInBackground() runs on a background thread and cannot update the UI
-    // returns a String that can be accessed from done() via get() (not used here)
-    // see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/simple.html
-    // doInBackground() would call publish() if had intermediate results that
-    // process() should inform the user of on the main UI thread
-    // see https://docs.oracle.com/javase/tutorial/uiswing/concurrency/interim.html
     public void run() {
         while (Server.listening) {
-            if (buzzerServer.participants.size() > 0) {
-                Participant client = buzzerServer.participants.get(nextParticipantIndex);
-                nextParticipantIndex++;
-                nextParticipantIndex %= buzzerServer.participants.size();
+            if (buzzerServer.getParticipants().size() > 0) {
+                Participant client = getNextParticipant();
                 try {
                     in = new BufferedReader(new InputStreamReader(client.getClientSocket().getInputStream()));
                     if (in.ready()) {
@@ -199,37 +185,59 @@ class ClientConnectionThread extends Thread {
                         if ((inputLine = in.readLine()) != null) {
                             System.out.println("Read from client: " + inputLine);
                             if (inputLine.length() > 0) { // ignore empty messages
-                                if (!inputLine.equals(client.getName())) {
-                                    // new name for this client, update list
-                                    client.setName(inputLine);
-                                    SwingUtilities.invokeLater(()-> {
-                                        buzzerController.updateClientComponents();
-                                    });
-                                }
-                                if (!buzzerServer.responses.contains(client.getClientSocket().getInetAddress())) {
-                                    // we haven't received a response from this ip address yet
-                                    buzzerServer.responses.add(client.getClientSocket().getInetAddress());
-                                    final String inputLineFinal = inputLine;
-                                    SwingUtilities.invokeLater(() -> {
-                                        buzzerController.responseReceived(inputLineFinal);
-                                    });
-                                }
+                                takeInputLineAction(client, inputLine);
                             }
-                        } else {
-                            System.out.println("Read null from client " + client.getName() + ", closing socket");
-                            client.getClientSocket().close();
-                            SwingUtilities.invokeLater(() -> {
-                                buzzerServer.updateParticipantList();
-                                buzzerController.updateClientComponents();
-                            });
                         }
                     }
                 } catch (SocketException e) {
                     System.out.println("Socket Exception: " + e.getMessage());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println("IOException: " + e.getMessage());
                 }
             }
         }
+    }
+
+    private Participant getNextParticipant() {
+        Participant client = buzzerServer.getParticipants().get(nextParticipantIndex);
+        nextParticipantIndex++;
+        nextParticipantIndex %= buzzerServer.participants.size();
+        return client;
+    }
+
+    private void takeInputLineAction(Participant client, String inputLine) {
+        if (inputLine.equals(Server.CLOSING)) {
+            // client sent the closing message, remove it from the active participants list
+            closeClientConnection(client);
+        }
+        if (!inputLine.equals(client.getName())) {
+            // new name for this client, update list
+            client.setName(inputLine);
+            SwingUtilities.invokeLater(()-> {
+                buzzerController.updateClientComponents();
+            });
+        }
+        if (!buzzerServer.responses.contains(client.getClientSocket().getInetAddress())) {
+            // we haven't received a response from this ip address yet
+            buzzerServer.responses.add(client.getClientSocket().getInetAddress());
+            final String inputLineFinal = inputLine;
+            SwingUtilities.invokeLater(() -> {
+                buzzerController.responseReceived(inputLineFinal);
+            });
+        }
+    }
+
+    private void closeClientConnection(Participant client) {
+        System.out.println("Read " + Server.CLOSING + " from client " + client.getName() + ", closing socket");
+
+        try {
+            client.getClientSocket().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> {
+            buzzerServer.updateParticipantList();
+            buzzerController.updateClientComponents();
+        });
     }
 }

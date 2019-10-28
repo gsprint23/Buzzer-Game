@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static com.ginasprint.buzzer.server.Server.CLOSING;
+
 public class Client {
     private ClientController controller;
     private String hostName;
@@ -49,7 +51,7 @@ public class Client {
                 try {
                     while ((serverResponse = in.readLine()) != null) {
                         // com.sprint.buzzer.server.BuzzerServer only sends "closing" shutdown signal
-                        if (serverResponse.equals("closing")) {
+                        if (serverResponse.equals(CLOSING)) {
                             System.out.println("Shutting down");
                             controller.connectionClosed();
                             if (clientSocket != null) {
@@ -71,6 +73,12 @@ public class Client {
     public void buzzIn(String name) {
         if (out != null) {
             out.println(name);
+        }
+    }
+
+    public void closeConnection() {
+        if (out != null) {
+            out.println(CLOSING);
         }
     }
 
