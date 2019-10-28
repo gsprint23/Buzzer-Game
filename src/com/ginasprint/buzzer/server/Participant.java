@@ -59,4 +59,9 @@ public class Participant implements Comparable<Participant> {
         }
         return this.name.compareTo(o.name);
     }
+
+    @Override
+    public String toString() {
+        return getName() + " (" + getClientSocket().getInetAddress().getHostAddress() + ")";
+    }
 }

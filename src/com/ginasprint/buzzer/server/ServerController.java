@@ -73,7 +73,7 @@ public class ServerController implements ActionListener {
         gui.clientCountLabel.setText("Active Participants: " + clients.size());
         gui.clientListModel.clear();
         for (Participant p : clients) {
-            gui.clientListModel.addElement(p.getName() + " (" + p.getClientSocket().getInetAddress().getHostAddress() + ")");
+            gui.clientListModel.addElement(p.toString());
         }
     }
 

@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07a3ca83-a26a-48c5-96e0-09e64c4cc2a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/ClientController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/ClientGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/MainClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BuzzerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BuzzerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BuzzerServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Participant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Participant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Participant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Participant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
