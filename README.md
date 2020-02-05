@@ -12,7 +12,8 @@ Server
 <img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/server.png" width="500"/>
 
 Client (Mac)
-<img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/client1.png" width="300"/>
+<img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/client1.png" width="325"/>
+
 Client (Linux)  
 <img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/client2.png" width="300"/>
 
