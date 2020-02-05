@@ -135,11 +135,18 @@ public class Server {
     }
 
     public void scoreParticipant(int responseIndex) {
-        InetAddress responseAddress = responses.get(responseIndex);
-        for (Participant p : participants) {
-            if (p.getClientSocket().getInetAddress().equals(responseAddress)) {
-                p.setScore(p.getScore() + POINTS);
+        try {
+            InetAddress responseAddress = responses.get(responseIndex);
+            for (Participant p : participants) {
+                if (p.getClientSocket().getInetAddress().equals(responseAddress)) {
+                    p.setScore(p.getScore() + POINTS);
+                }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // responseIndex isn't valid
+            // TODO: should tell the user they need to select a participant
+            // to score first
+            // for now, do nothing
         }
     }
 

@@ -7,6 +7,15 @@ Compare to hardware implementations such as
 * https://www.buzzersystems.com/
 * https://www.quizgamebuzzers.com
 
+### Screenshots
+Server  
+<img src="" width="500"/>
+
+Client (Mac)
+<img src="" width="300"/>
+Client (Linux)  
+<img src="" width="300"/>
+
 ### Server MVC Design (com.ginasprint.buzzer.server)
 * Model: Server
 * View: ServerGUI
@@ -17,8 +26,10 @@ Compare to hardware implementations such as
 * View: ClientGUI
 * Controller: ClientController
  
-### To Comiple and Run via in IntelliJ IDEA
+### To Compile and Run via in IntelliJ IDEA
 * Open the project in IntelliJ IDEA
+* Choose the MainServer run configuration and run
+* Then choose the MainClient run configuration and run
 * Set up command line arguments for each run configuration as follows
     * java MainServer portNumber
     * java MainClient serverHostName portNumber

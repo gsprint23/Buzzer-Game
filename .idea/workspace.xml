@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="07a3ca83-a26a-48c5-96e0-09e64c4cc2a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/client/ClientGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/Server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,7 +48,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.MainClient">
-    <configuration name="MainClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="MainClient" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ginasprint.buzzer.client.MainClient" />
       <module name="BuzzerGame" />
       <extension name="coverage">
@@ -63,7 +61,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="MainServer" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ginasprint.buzzer.server.MainServer" />
       <module name="BuzzerGame" />
       <extension name="coverage">
@@ -76,12 +74,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.MainClient" />
-        <item itemvalue="Application.MainServer" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
