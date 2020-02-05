@@ -9,12 +9,12 @@ Compare to hardware implementations such as
 
 ### Screenshots
 Server  
-<img src="" width="500"/>
+<img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/server.png" width="500"/>
 
 Client (Mac)
-<img src="" width="300"/>
+<img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/client1.png" width="300"/>
 Client (Linux)  
-<img src="" width="300"/>
+<img src="https://raw.githubusercontent.com/gsprint23/Buzzer-Game/master/images/client2.png" width="300"/>
 
 ### Server MVC Design (com.ginasprint.buzzer.server)
 * Model: Server
