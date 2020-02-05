@@ -17,13 +17,24 @@ Compare to hardware implementations such as
 * View: ClientGUI
 * Controller: ClientController
  
-### To Run
-* java MainServer portNumber
-* java MainClient serverHostName portNumber
+### To Comiple and Run via in IntelliJ IDEA
+* Open the project in IntelliJ IDEA
+* Set up command line arguments for each run configuration as follows
+ * java MainServer portNumber
+ * java MainClient serverHostName portNumber
 
 Default values are
 * portNumber 8080
 * serverHostName localhost
+
+### To Compile and Run from Command Line
+* cd into src/
+* Compile and run server
+ * javac ./com/ginasprint/buzzer/server/*.java
+ * java com.ginasprint.buzzer.server.MainServer portNumber
+* Compile and run client
+ * javac ./com/ginasprint/buzzer/client/*.java
+ * java com.ginasprint.buzzer.client.MainClient serverHostName portNumber
 
 ### Dependencies
 * Java version >= 8
