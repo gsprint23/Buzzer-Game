@@ -26,6 +26,13 @@ Client (Linux)
 * Model: Client
 * View: ClientGUI
 * Controller: ClientController
+
+### To Run via Executable Jar Files
+* cd to jars/
+* Run server
+    * java -jar BuzzerServer.jar  portNumber
+* Run client
+    * java -jar BuzzerClient.jar serverHostName portNumber
  
 ### To Compile and Run via in IntelliJ IDEA
 * Open the project in IntelliJ IDEA
