@@ -9,7 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="07a3ca83-a26a-48c5-96e0-09e64c4cc2a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/MainServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

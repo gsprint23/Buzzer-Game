@@ -27,7 +27,7 @@ public class MainServer {
             portNumber = Integer.parseInt(args[0]);
         }
         else {
-            System.out.println("Usage: <hostname> <port number>");
+            System.out.println("Usage: <port number>");
             System.out.println("Using default port number: " + portNumber);
         }
         Server server = new Server(portNumber);
