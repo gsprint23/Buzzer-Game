@@ -131,12 +131,12 @@ public class ServerGUI extends JFrame {
         JLabel ipLabel = new JLabel();
         ipLabel.setFont(new Font("Default", Font.BOLD, FONT_SIZE));
         InetAddress inetAddress;
-        String myHostName = "??";
+        //String myHostName = "??";
         try {
-            inetAddress = InetAddress.getLocalHost();
-            String[] pieces = inetAddress.toString().split("/");
-            ipAddress = pieces[1];
-            myHostName = inetAddress.getHostName();
+            ipAddress = InetAddress.getLocalHost().getHostAddress();
+            //String[] pieces = inetAddress.toString().split("/");
+            //ipAddress = pieces[1];
+            //myHostName = inetAddress.getHostName();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

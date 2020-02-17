@@ -9,7 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="07a3ca83-a26a-48c5-96e0-09e64c4cc2a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ginasprint/buzzer/server/ServerGUI.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +55,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.MainClient">
+  <component name="RunManager" selected="Application.MainServer">
     <configuration name="MainClient" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ginasprint.buzzer.client.MainClient" />
       <module name="BuzzerGame" />
