@@ -8,14 +8,13 @@
 
 package com.ginasprint.buzzer.server;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.Socket;
+import java.net.InetSocketAddress;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -146,7 +145,7 @@ public class ServerGUI extends JFrame {
     // }
 
     private String getPublicIPAddress() {
-        // from https://www.geeksforgeeks.org/java-program-find-ip-address-computer/
+        // from https://www.baeldung.com/java-get-ip-address
         // Find public IP address
         String ipAddressString = "";
         try (Socket socket = new Socket()) {
