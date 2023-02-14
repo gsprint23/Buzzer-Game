@@ -8,6 +8,9 @@
 
 package com.ginasprint.buzzer.server;
 
+import java.net.*;
+import java.io.*;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -127,19 +130,40 @@ public class ServerGUI extends JFrame {
         return panel;
     }
 
+    // returns 127.0.0.1, but we want public IP
+    // private String getPublicIPAddress() {
+    //     String ipAddressString = "";
+    //     //String myHostName = "??";
+    //     try {
+    //         ipAddress = InetAddress.getLocalHost().getHostAddress();
+    //         //String[] pieces = inetAddress.toString().split("/");
+    //         //ipAddress = pieces[1];
+    //         //myHostName = inetAddress.getHostName();
+    //     } catch (UnknownHostException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return ipAddressString;
+    // }
+
+    private String getPublicIPAddress() {
+        // from https://www.geeksforgeeks.org/java-program-find-ip-address-computer/
+        // Find public IP address
+        String ipAddressString = "";
+        try (Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress("google.com", 80));
+            ipAddressString = socket.getLocalAddress().getHostAddress();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ipAddressString;
+    }
+
     private JPanel createConfigPanel() {
         JLabel ipLabel = new JLabel();
         ipLabel.setFont(new Font("Default", Font.BOLD, FONT_SIZE));
         InetAddress inetAddress;
-        //String myHostName = "??";
-        try {
-            ipAddress = InetAddress.getLocalHost().getHostAddress();
-            //String[] pieces = inetAddress.toString().split("/");
-            //ipAddress = pieces[1];
-            //myHostName = inetAddress.getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        ipAddress = getPublicIPAddress();
         ipLabel.setText("Server IP Address: " + ipAddress);// + " Hostname: " + myHostName);
 
         JPanel panel = new JPanel();
