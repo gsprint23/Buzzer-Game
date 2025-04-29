@@ -30,9 +30,10 @@ Client (Linux)
 ### To Run via Executable Jar Files
 * cd to jars/
 * Run server
-    * java -jar BuzzerServer.jar  portNumber
+    * `java -jar BuzzerServer.jar  portNumber`
 * Run client
-    * java -jar BuzzerClient.jar serverHostName portNumber
+    * Using system `java`: `java -jar BuzzerClient.jar serverHostName portNumber`
+    * Using bundled `java` (works for Windows x64 only): `.\java.exe -jar BuzzerClient.jar serverHostName portNumber`
  
 ### To Compile and Run via in IntelliJ IDEA
 * Open the project in IntelliJ IDEA
@@ -49,11 +50,11 @@ Default values are
 ### To Compile and Run from Command Line
 * cd into src/
 * Compile and run server
-    * javac ./com/ginasprint/buzzer/server/*.java
-    * java com.ginasprint.buzzer.server.MainServer portNumber
+    * `javac ./com/ginasprint/buzzer/server/*.java`
+    * `java com.ginasprint.buzzer.server.MainServer portNumber`
 * Compile and run client
-    * javac ./com/ginasprint/buzzer/client/*.java
-    * java com.ginasprint.buzzer.client.MainClient serverHostName portNumber
+    * `javac ./com/ginasprint/buzzer/client/*.java`
+    * `java com.ginasprint.buzzer.client.MainClient serverHostName portNumber`
 
 ### Dependencies
 * Java version >= 8
