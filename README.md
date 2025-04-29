@@ -33,7 +33,7 @@ Client (Linux)
     * `java -jar BuzzerServer.jar  portNumber`
 * Run client
     * Using system `java`: `java -jar BuzzerClient.jar serverHostName portNumber`
-    * Using bundled `java` (works for Windows x64 only): `.\java.exe -jar BuzzerClient.jar serverHostName portNumber`
+    * Using bundled `java` (works for Windows x64 only): `.\jdk\bin\java.exe -jar BuzzerClient.jar serverHostName portNumber`
  
 ### To Compile and Run via in IntelliJ IDEA
 * Open the project in IntelliJ IDEA
